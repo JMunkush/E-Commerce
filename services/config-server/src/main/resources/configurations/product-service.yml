@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    change-log:
+      classpath:db/master.xml
+
+  datasource:
+    hikari:
+      connection-timeout: 10000
+    username: postgres
+    password: root
+    url: jdbc:postgresql://localhost:5432/postgres
+
+server:
+  port: 8082
