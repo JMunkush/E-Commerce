@@ -8,7 +8,7 @@ spring:
       connection-timeout: 10000
     username: postgres
     password: root
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/commerce
 
 server:
   port: 8082
