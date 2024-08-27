@@ -11,4 +11,5 @@ public record ProductPurchaseRequest(
         int quantity
 
 ) {
+
 }
