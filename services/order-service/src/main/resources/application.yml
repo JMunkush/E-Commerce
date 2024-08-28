@@ -4,4 +4,10 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888
 
-
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:io.munkush.app.services.kafka.OrderConfirmation

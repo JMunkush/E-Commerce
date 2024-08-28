@@ -32,19 +32,21 @@ public class ProductService {
     public Long save(ProductRequest request) {
 
 
-        if (categoryRepository.existsById(request.categoryId())) {
-
-            var category = categoryRepository.findById(request.categoryId())
-                    .orElseThrow(() -> getCategoryNotFoundException(request.categoryId()));
-
-            var product = productRequestToProductMapper.map(request);
-            product.setCategory(category);
-
-            productRepository.save(product);
-
+        if (!categoryRepository.existsById(request.categoryId())) {
+            throw new ProductNotFoundException(format("category with id: %s not found", request.categoryId()));
         }
 
-        return null;
+        var category = categoryRepository.findById(request.categoryId())
+                .orElseThrow(() -> getCategoryNotFoundException(request.categoryId()));
+
+        var product = productRequestToProductMapper.map(request);
+        product.setCategory(category);
+
+        var savedProduct = productRepository.save(product);
+
+        return savedProduct.getId();
+
+
     }
 
     private CategoryNotFoundException getCategoryNotFoundException(Long categoryId){
@@ -98,7 +100,7 @@ public class ProductService {
     public ProductResponse findById(Long id) {
         return productToResponseMapper.map(
                 productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(format("product with id: %s not found", id)))
+                        .orElseThrow(() -> new ProductNotFoundException(format("product with id: %s not found", id)))
         );
     }
 

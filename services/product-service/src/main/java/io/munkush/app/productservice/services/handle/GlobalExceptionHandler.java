@@ -2,6 +2,7 @@ package io.munkush.app.productservice.services.handle;
 
 import io.munkush.app.productservice.services.category.exception.CategoryNotFoundException;
 import io.munkush.app.productservice.services.product.exception.ProductNotFoundException;
+import io.munkush.app.productservice.services.product.exception.ProductPurchaseException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleProductNotFound(ProductNotFoundException e){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(e.getLocalizedMessage());
+    }
+    @ExceptionHandler(ProductPurchaseException.class)
+    public ResponseEntity<String> handlePurchase(ProductPurchaseException e){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(e.getLocalizedMessage());
     }
 

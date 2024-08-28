@@ -4,6 +4,7 @@ import io.munkush.app.productservice.services.product.dto.ProductPurchaseRequest
 import io.munkush.app.productservice.services.product.dto.ProductPurchaseResponse;
 import io.munkush.app.productservice.services.product.dto.ProductRequest;
 import io.munkush.app.productservice.services.product.dto.ProductResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,13 @@ public class ProductController {
 
     private final ProductService productService;
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody ProductRequest request){
+    public ResponseEntity<Long> create(@RequestBody @Valid ProductRequest request){
         return ResponseEntity.ok(productService.save(request));
     }
 
     @PostMapping("/purchase")
     public ResponseEntity<List<ProductPurchaseResponse>> purchase(
-            @RequestBody List<ProductPurchaseRequest> request
+            @RequestBody @Valid List<ProductPurchaseRequest> request
     ){
         return ResponseEntity.ok(productService.purchase(request));
     }
@@ -38,6 +39,7 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> fetchAll(){
         return ResponseEntity.ok(productService.findAll());
     }
+
 
 
 }
