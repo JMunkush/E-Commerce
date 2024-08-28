@@ -27,7 +27,6 @@ public class Order {
     private PaymentMethod paymentMethod;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderLine> orderLines;
-    @CreatedDate
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedDate;
 }

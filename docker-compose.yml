@@ -28,7 +28,20 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
-      MONGO_INITDB_DATABASE: commerce
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express
+    restart: always
+    ports:
+      - "8089:8081"
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=mongo
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=mongo
+      - ME_CONFIG_MONGODB_SERVER=ms_mongo_db
+    depends_on:
+      - mongodb
+
 
   mail-dev:
     container_name: ms_mail_dev

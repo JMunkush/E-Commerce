@@ -1,5 +1,6 @@
 package io.munkush.app.services.handler;
 
+import io.munkush.app.services.order.exception.BusinessException;
 import io.munkush.app.services.order.exception.OrderNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,19 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<String> handleGlobalExceptionHandler(OrderNotFoundException e){
+    public ResponseEntity<String> handleGlobalException(OrderNotFoundException e){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(e.getLocalizedMessage());
     }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<String> handleBusinessException(BusinessException e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(e.getLocalizedMessage());
+    }
+
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

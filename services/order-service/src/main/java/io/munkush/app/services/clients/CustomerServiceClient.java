@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
-        name = "customer-service"
+        name = "customer-service",
+        path = "/api/v1/customers"
 )
 public interface CustomerServiceClient {
     @GetMapping("/exists/{customer-id}")
     ResponseEntity<Boolean> existsById(@PathVariable("customer-id") String id);
 
     @GetMapping("/{customer-id}")
-    public ResponseEntity<CustomerResponse> fetchById(@PathVariable("customer-id") String id);
+    ResponseEntity<CustomerResponse> fetchById(@PathVariable("customer-id") String id);
 }

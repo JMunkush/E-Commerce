@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @FeignClient(
-        name = "product-service"
+        name = "product-service",
+        path = "/api/v1/products"
 )
 public interface ProductServiceClient {
     @PostMapping("/purchase")
