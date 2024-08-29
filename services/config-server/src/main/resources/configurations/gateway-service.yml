@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+
+        - id: customer-route
+          uri: lb:http://customer-service
+          predicates:
+            - Path=/api/v1/customers/**
+
+        - id: product-route
+          uri: lb:http://product-service
+          predicates:
+            - Path=/api/v1/products/**
+
+        - id: categories-route
+          uri: lb:http://product-service
+          predicates:
+            - Path=/api/v1/categories/**
+
+        - id: order-service
+          uri: lb:http://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+
+
+server:
+  port: 8181
