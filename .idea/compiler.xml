@@ -11,6 +11,7 @@
         <module name="payment-service" />
         <module name="customer-service" />
         <module name="gateway-service" />
+        <module name="auth-server" />
         <module name="product-service" />
         <module name="e-commerce" />
         <module name="order-service" />
@@ -18,9 +19,13 @@
         <module name="notification-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="auth-server" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-server" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="customer-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />

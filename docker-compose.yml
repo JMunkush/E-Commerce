@@ -2,6 +2,30 @@ version: "3.8"
 
 services:
 
+
+  keycloak:
+    container_name: "keycloak_ms"
+    image: quay.io/keycloak/keycloak:25.0.2
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: commerce
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: root
+      KC_HOSTNAME_STRICT: 'false'
+      KC_HTTP_ENABLED: 'true'
+      KC_PROXY: 'edge'
+      KC_HOSTNAME: 'localhost'
+    ports:
+      - "8585:8080"
+    depends_on:
+      - postgres
+    command: start-dev
+    networks:
+      - commerce
+      -
   postgres:
     container_name: ms_pg_sql
     image: postgres:16
@@ -94,7 +118,6 @@ services:
 volumes:
   postgres:
   mongo:
-
 
 networks:
   commerce:
